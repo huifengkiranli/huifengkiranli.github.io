@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? Ho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pricing framework study">
+<meta property="og:url" content="http://huifengkiranli.github.io/2022/08/06/pricing2/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? Ho">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-05T16:36:27.000Z">
+<meta property="article:modified_time" content="2022-08-23T19:24:38.763Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="Pricing">
+<meta property="article:tag" content="Cost">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2022/08/06/pricing2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2022/08/06/pricing2/","path":"2022/08/06/pricing2/","title":"Pricing framework study"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Pricing framework study | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2022/08/06/pricing2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Pricing framework study | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pricing framework study
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-08-06 00:36:27" itemprop="dateCreated datePublished" datetime="2022-08-06T00:36:27+08:00">2022-08-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Strategy/" itemprop="url" rel="index"><span itemprop="name">Strategy</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? How much will they willing to pay? What does the competitor do? There is a lot of I summarised some modules to think through pricing .</p>
+<span id="more"></span>
+
+<h1 id="Cost-and-economics"><a href="#Cost-and-economics" class="headerlink" title="Cost and economics"></a>Cost and economics</h1><p>A company can maximize its profits by producing to where marginal cost (MC) equals marginal revenue (MR). <strong>Marginal cost also has an impact on average cost</strong>. When marginal cost is less than average cost, the production of additional units will decrease the average cost. When marginal cost is more, producing more units will increase the average. cost per unit.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-1.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-2.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-3.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-4.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p><strong>Price Elasticity</strong> of Demand &#x3D; Percentage Change in Quantity Demanded &#x2F; Percentage Change in Price</p>
+<ul>
+<li>A good is perfectly elastic if the price elasticity is infinite (if demand changes substantially even with minimal price change).</li>
+<li>If price elasticity is greater than 1, the good is elastic; if less than 1, it is inelastic.</li>
+<li>If a good’s price elasticity is 0 (no amount of price change produces a change in demand), it is perfectly inelastic.</li>
+<li>If price elasticity is exactly 1 (price change leads to an equal percentage change in demand), it is known as unitary elasticity.</li>
+</ul>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-5.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p><strong>Index Based Pricing</strong> is the use of a market or raw material index (or group of indices) to calculate and regularly refresh prices. Index Based Pricing evolved as a mean to aid these contract negotiations and enable buyers and sellers to enter into longer-term contracts with fewer hassles. It helped suppliers protect their margins in volatile markets, reduced hassling negotiations and offered a transparent pricing mechanism.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-9.png" width="600"></p><p align = "center" > Fig by Deloitte
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-10.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p><strong>Customer lifetime value</strong> is the total worth to a business of a customer over the whole period of their relationship. It’s an important metric as it costs less to keep existing customers than it does to acquire new ones, so increasing the value of your existing customers is a great way to drive growth.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-6.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-7.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-8.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<h1 id="Customer-Value"><a href="#Customer-Value" class="headerlink" title="Customer Value"></a>Customer Value</h1><p><strong>Customer value</strong> &#x3D; Total Customer Benefits - Total Customer Costs or (B - C &#x3D; CV).</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-11.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-12.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-13.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-14.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-15.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<h1 id="Competition"><a href="#Competition" class="headerlink" title="Competition"></a>Competition</h1><p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-16.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-17.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-18.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-19.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+
+
+
+
+<h1 id="Glossary"><a href="#Glossary" class="headerlink" title="Glossary"></a>Glossary</h1><ul>
+<li><p><strong>Price Sensitivity</strong>: The degree to which the price of a product influences consumers’ demand for it. Consumers are “price-sensitive” if their demand for a product changes a lot when the price changes only a little. Consumers are “price-insensitive” if their demand for the product hardly changes even if the price changes a lot.</p>
+</li>
+<li><p><strong>Customer Demand</strong>: The number of units that customers would buy at a given price point.</p>
+</li>
+<li><p><strong>Fixed Costs</strong>: Non-unit-based costs. A cost that does not change in direct proportion to the quantity of units produced and sold. These are often up-front costs.<br><br>For example: If you have a lemonade stand, the fixed costs include the cost to build the stand, rent the location, and advertise. However, if you were to expand into multiple locations, you would need to invest in more lemonade stands. The fixed costs would go up, but not in direct proportion to the number of cups of lemonade produced.</p>
+</li>
+<li><p><strong>Variable Costs</strong>: Vary as the unit quantity a company produces and sells changes. These are the costs of each incremental unit.<br><br>For example: If you have a lemonade stand, the variable costs include everything needed to produce and sell one cup of lemonade: lemons, water, sugar, and a cup. However, these variable costs can change depending on the quantities produced. If you were to expand into multiple locations and buy lemons in larger quantities, the variable costs would go down.</p>
+</li>
+<li><p><strong>Revenue</strong>: The amount of money the company takes in from selling its products. Revenue equals the price per unit paid by the customer times the total number of units sold.</p>
+</li>
+<li><p><strong>Profit</strong>: The amount of money the company earns after paying all of its expenses. Profit is affected by both variables in your demand curve—the price of your product and the corresponding quantity customers will buy at that price.<br><br><strong>Profit &#x3D; Revenue - Costs (fixed costs + [variable costs x units sold])</strong><br> <br> Variable costs may change based on the quantity you produce or sell if greater quantities lead to production efficiencies that allow you to produce each unit at lower costs. Fixed costs can also change based on quantity, just not at the unit level. For example, if you increase production, you may need to add fixed costs, such as a new factory or warehousing facilities.</p>
+</li>
+<li><p><strong>Value</strong>: The difference between the benefits customers receive from a product and the price they must pay to obtain it. Value is based on how well the product completes “the job” customers hire it to do. Value consists of functional benefits and symbolic benefits.</p>
+</li>
+<li><p><strong>Margin</strong> &#x3D; selling price - cost to produce<br>  margin% &#x3D; (selling price - cost) &#x2F; selling price<br>  selling price &#x3D; cost &#x2F; (1-margin%)</p>
+</li>
+<li><p><strong>Margin vs. Markup</strong>: when expressed in currency, they are exactly the same<br>Margins: how much money you intend to make on product<br>Markup: how much money you are making on a product<br>Markup% &#x3D; (selling price - cost) &#x2F; cost<br>Selling price &#x3D; cost * (1+markup%)</p>
+</li>
+<li><p><strong>Marginal cost</strong>: represents the incremental costs incurred when producing additional units of a good or service. It is calculated by taking the total change in the cost of producing more goods and dividing that by the change in the number of goods produced<br><strong>Marginal Cost &#x3D; (Change in Costs) &#x2F; (Change in Quantity)</strong></p>
+</li>
+</ul>
+<ol>
+<li><p>What is “Change in Costs”?<br>At each level of production and during each time period, costs of production may increase or decrease, especially when the need arises to produce more or less volume of output. If manufacturing additional units requires hiring one or two additional workers and increases the purchase cost of raw materials, then a change in the overall production cost will result.<br>To determine the change in costs, simply deduct the production costs incurred during the first output run from the production costs in the next batch when output has increased.</p>
+</li>
+<li><p>What is “Change in Quantity”?<br>It’s inevitable that the volume of output will increase or decrease with varying levels of production. The quantities involved are usually significant enough to evaluate changes in cost. An increase or decrease in the volume of goods produced translates to costs of goods manufactured (COGM).<br>To determine the changes in quantity, the number of goods made in the first production run is deducted from the volume of output made in the following production run.</p>
+</li>
+</ol>
+<ul>
+<li><strong>Price discrimination</strong>: describes the practice of selling an identical product to different buyers at different sales prices.</li>
+<li><strong>Price elasticity of demand</strong> is a measurement of the change in the consumption of a product in relation to a change in its price.</li>
+<li><strong>Peak Load Pricing</strong> is the pricing strategy wherein the high price is charged for the goods and services during times when their demand is at peak. In other words, the high price charged during the high demand period is called as the peak load pricing.</li>
+<li><strong>Customer value</strong> measures a product or service’s worth and compares it to its possible alternatives. This determines whether the customer feels like they received enough value for the price they paid for the product&#x2F;service.</li>
+<li><strong>Next best alternative</strong>: Customers looking to buy a product usually have a specific product in mind.</li>
+<li><strong>Willingness to pay</strong> or WTP is the maximum amount of money a consumer is inclined or willing to spend on a commodity. This amount can never be expressed in exact numbers as all the consumers will never have the same willingness to pay.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pricing/" rel="tag"># Pricing</a>
+              <a href="/tags/Cost/" rel="tag"># Cost</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/23/economic3-household%20saving/" rel="prev" title="Consumption tracking - Household savings analysis">
+                  <i class="fa fa-chevron-left"></i> Consumption tracking - Household savings analysis
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

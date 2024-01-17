@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="This is an UK E-commerce enterprise CRM analysis project，I processed data through MySQL.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRM Analysis-RFM model 1">
+<meta property="og:url" content="http://huifengkiranli.github.io/2019/12/11/data%20analysis8/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="This is an UK E-commerce enterprise CRM analysis project，I processed data through MySQL.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://kiranli.github.io/images/UK1.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK2.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK3.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK4.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK5.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK6.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK7.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK8.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK9.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK10.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK11.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK12.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK13.png">
+<meta property="og:image" content="https://kiranli.github.io/images/UK14.png">
+<meta property="article:published_time" content="2019-12-11T16:36:27.000Z">
+<meta property="article:modified_time" content="2022-07-10T16:20:20.674Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="CRM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kiranli.github.io/images/UK1.png">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2019/12/11/data%20analysis8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2019/12/11/data%20analysis8/","path":"2019/12/11/data analysis8/","title":"CRM Analysis-RFM model 1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CRM Analysis-RFM model 1 | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2019/12/11/data%20analysis8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CRM Analysis-RFM model 1 | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CRM Analysis-RFM model 1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-12-11 17:36:27" itemprop="dateCreated datePublished" datetime="2019-12-11T17:36:27+01:00">2019-12-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-analysis/" itemprop="url" rel="index"><span itemprop="name">Data analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>This is an UK E-commerce enterprise CRM analysis project，I processed data through MySQL.</p>
+<span id="more"></span>
+
+
+
+
+<h1 id="RFM客户分层模型"><a href="#RFM客户分层模型" class="headerlink" title="RFM客户分层模型"></a>RFM客户分层模型</h1><h1 id="1-公司是英国一家特色礼品销售公司，多数客户是礼品批发商，分布主要在欧洲。所以这个项目数据是一个跨国数据集，记录在英国注册的非商店而是online在线零售的所有交易。"><a href="#1-公司是英国一家特色礼品销售公司，多数客户是礼品批发商，分布主要在欧洲。所以这个项目数据是一个跨国数据集，记录在英国注册的非商店而是online在线零售的所有交易。" class="headerlink" title="1. 公司是英国一家特色礼品销售公司，多数客户是礼品批发商，分布主要在欧洲。所以这个项目数据是一个跨国数据集，记录在英国注册的非商店而是online在线零售的所有交易。"></a>1. 公司是英国一家特色礼品销售公司，多数客户是礼品批发商，分布主要在欧洲。所以这个项目数据是一个跨国数据集，记录在英国注册的非商店而是online在线零售的所有交易。</h1><h1 id="2-Operations-management-issues-需要分析公司客户主要集中在哪些国家？如何精细化客户群体及进一步营销管理？本文将建立客户价值分析模型RFM来为运营和营销管理提供数据支持。"><a href="#2-Operations-management-issues-需要分析公司客户主要集中在哪些国家？如何精细化客户群体及进一步营销管理？本文将建立客户价值分析模型RFM来为运营和营销管理提供数据支持。" class="headerlink" title="2. Operations management issues: 需要分析公司客户主要集中在哪些国家？如何精细化客户群体及进一步营销管理？本文将建立客户价值分析模型RFM来为运营和营销管理提供数据支持。"></a>2. Operations management issues: 需要分析公司客户主要集中在哪些国家？如何精细化客户群体及进一步营销管理？本文将建立客户价值分析模型RFM来为运营和营销管理提供数据支持。</h1><h1 id="3-Data-information-该数据集时间跨度为2010年12月1日至2011年12月9日，共包含541909条记录，8个字段：-CustomerID-InvoiceNo-InvoiceDate-Quantity-UnitPrice-Country，Description-StockCode。"><a href="#3-Data-information-该数据集时间跨度为2010年12月1日至2011年12月9日，共包含541909条记录，8个字段：-CustomerID-InvoiceNo-InvoiceDate-Quantity-UnitPrice-Country，Description-StockCode。" class="headerlink" title="3. Data information: 该数据集时间跨度为2010年12月1日至2011年12月9日，共包含541909条记录，8个字段： CustomerID, InvoiceNo, InvoiceDate, Quantity, UnitPrice, Country，Description, StockCode。"></a>3. Data information: 该数据集时间跨度为2010年12月1日至2011年12月9日，共包含541909条记录，8个字段： CustomerID, InvoiceNo, InvoiceDate, Quantity, UnitPrice, Country，Description, StockCode。</h1><h1 id="4-Data-Preparation"><a href="#4-Data-Preparation" class="headerlink" title="4. Data Preparation"></a>4. Data Preparation</h1><h3 id="基于客户价值分析RFM模型需要，新建表data1，在该表中将去掉两个字段：StockCode和Description-MySQL-code-如下："><a href="#基于客户价值分析RFM模型需要，新建表data1，在该表中将去掉两个字段：StockCode和Description-MySQL-code-如下：" class="headerlink" title="- 基于客户价值分析RFM模型需要，新建表data1，在该表中将去掉两个字段：StockCode和Description, MySQL code 如下："></a>- 基于客户价值分析RFM模型需要，新建表data1，在该表中将去掉两个字段：StockCode和Description, MySQL code 如下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table data1 </span><br><span class="line">as select CustomerID,InvoiceNo,InvoiceDate,Quantity,UnitPrice,Country from UK_data</span><br><span class="line">select * from data1</span><br></pre></td></tr></table></figure>
+<p><img src="https://kiranli.github.io/images/UK1.png" alt="UK1"></p>
+<h2 id="1-处理缺失值null-case-when-then-else-end："><a href="#1-处理缺失值null-case-when-then-else-end：" class="headerlink" title="-1. 处理缺失值null, case when then else end："></a>-1. 处理缺失值null, case when then else end：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select sum(case when CustomerID is null then 1 else 0 end) as &#x27;sum_customerid&#x27;,</span><br><span class="line">       sum(case when InvoiceNo  is null then 1 else 0 end) as &#x27;sum_invocieNo&#x27;,</span><br><span class="line">       sum(case when InvoiceDate is null then 1 else 0 end) as &#x27;sum_invoiceDate&#x27;,</span><br><span class="line">       sum(case when Quantity    is null then 1 else 0 end) as &#x27;sum_quantity&#x27;,</span><br><span class="line">       sum(case when UnitPrice   is null then 1 else 0 end) as &#x27;sun_unitprice&#x27;,</span><br><span class="line">       sum(case when Country     is null then 1 else 0 end)as &#x27;sum_country&#x27;</span><br><span class="line">from data1;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意点：MySQL does not accept spaces between function name and parenthesis, unless you have set SQL_MODE&#x3D;IGNORE_SPACE but that gives you other undesirable side effects, eg. <strong>sum_()</strong>.</li>
+</ul>
+<p><img src="https://kiranli.github.io/images/UK2.png" alt="UK2"></p>
+<p>查询结果可知，customerid存有135080个null，缺失率占比24.9%，数据丢失比较严重，需询问相关负责人查找原因，因无法知晓原因，将缺失值全部换成0处理，并把结果重新创建一个表data2, code 如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table data2 </span><br><span class="line">select coalesce(CustomerID,0)as CustomerID,InvoiceNo,InvoiceDate,Quantity,UnitPrice,Country </span><br><span class="line">from data1;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意点：将null值的字段转为0：coalesce(customerid,0)</li>
+</ul>
+<p>第一步的CustomerID中的缺失值处理完毕。</p>
+<h2 id="2-处理异常值"><a href="#2-处理异常值" class="headerlink" title="- 2.处理异常值"></a>- 2.处理异常值</h2><p>首先，查看InvoiceDate、Quantity、UnitPrice是否存在异常值，<strong>max()&amp;min()</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select max(InvoiceDate),min(InvoiceDate), max(Quantity),min(Quantity),</span><br><span class="line">max(UnitPrice),min(UnitPrice)</span><br><span class="line">from data2;</span><br></pre></td></tr></table></figure>
+<p><img src="https://kiranli.github.io/images/UK3.png" alt="UK3"></p>
+<p>结果显示：日期不存在异常值，Quantity、UnitPrice均存在异常值.</p>
+<h3 id="1-处理Quantity中的异常值"><a href="#1-处理Quantity中的异常值" class="headerlink" title="(1). 处理Quantity中的异常值"></a>(1). 处理Quantity中的异常值</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from data2 where Quantity &lt;=0;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK4.png" alt="UK4"></p>
+<p>可见Quantity中的异常值，共10624个，共同特征：InvoiceNo.皆以C开头，按实际分析，应该为退货处理，需要重点分析是什么原因造成的退货？本次练习主要是建立RFM模型，不分析退货原因，所以需把这些异常值删除 **delete from…where..**，实现代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from data2 where Quantity &lt;=0;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-处理UnitPrice的异常值"><a href="#2-处理UnitPrice的异常值" class="headerlink" title="(2). 处理UnitPrice的异常值"></a>(2). 处理UnitPrice的异常值</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from data2 where UnitPrice &lt;=0;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK5.png" alt="UK5"></p>
+<p>查询可知:1181条记录单价大多数为零，实际分析应该为赠品，对于单价为负值的，应为公司损失的商品，所以这两种应删除, <strong>delete from …where…</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delete from data2 where UnitPrice &lt;=0;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-数据格式一致化处理"><a href="#3-数据格式一致化处理" class="headerlink" title="- 3. 数据格式一致化处理"></a>- 3. 数据格式一致化处理</h2><h3 id="1-日期格式：数据集中InvoiceDate的日期不利于查询，处理代码如下："><a href="#1-日期格式：数据集中InvoiceDate的日期不利于查询，处理代码如下：" class="headerlink" title="(1). 日期格式：数据集中InvoiceDate的日期不利于查询，处理代码如下："></a>(1). 日期格式：数据集中InvoiceDate的日期不利于查询，处理代码如下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table data2 add column InvoiceDatetime varchar(255) not NULL</span><br><span class="line">update data2 set InvoiceDatetime = STR_TO_DATE(InvoiceDate,&#x27;%m/%d/%Y %H:%i&#x27;)；</span><br></pre></td></tr></table></figure>
+
+<p>删除原来的列InvoiceDate</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table data2 drop InvoiceDate;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK6.png" alt="UK6"></p>
+<p>日期处理：(<strong>str_to_date()</strong>)</p>
+<h3 id="2-RFM模型，还需要增加Monetary列"><a href="#2-RFM模型，还需要增加Monetary列" class="headerlink" title="(2). RFM模型，还需要增加Monetary列"></a>(2). RFM模型，还需要增加Monetary列</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table data2 add column Monetary float not NULL</span><br><span class="line">update data2 set Monetary = Quantity*UnitPrice;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK7.png" alt="UK7"></p>
+<h2 id="4-重复值处理"><a href="#4-重复值处理" class="headerlink" title="- 4. 重复值处理"></a>- 4. 重复值处理</h2><p>新建表data3用以insert distinct * from data2, code as belows:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">create table data3 like data2</span><br><span class="line">insert into data3 select distinct* from data2 </span><br><span class="line">select * from data3;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK8.png" alt="UK8"></p>
+<p>数据已全部清洗完毕，由图可知，CustomerID、InvoiceNo中仍然有重复值，从实际经验分析，CustomerID有重复值，说明客户有重复购买行为，而InvoiceNo中有重复值说明客户一次购买了多种商品，因本文研究的是FRM模型，即可以把每一个不同的InvoiceNo代表一次购买行为发生。</p>
+<p>Notes:  <strong>create table like &#x2F;as comparison</strong>:</p>
+<ul>
+<li>半自动化模式create table like…..其创建的表除了表名和源表不一样外，其余所有的细节都是一样的。但是没有源表的数据。所以这种create  table like的形式非常适合对源表模式的复制。</li>
+<li>懒人模式 create table as select…创建的表，非分区表,不管源表是否是分区表，一定要注意分区功能的丢失。当然创建表以后可以添加分区，成为分区表。如果select选择的是指定的列则不会有这种问题。</li>
+<li>使用CTAS方式创建的表不能是外部表。</li>
+</ul>
+<h1 id="5-Data-Modeling-RFM"><a href="#5-Data-Modeling-RFM" class="headerlink" title="5. Data Modeling-RFM"></a>5. Data Modeling-RFM</h1><h2 id="1-RFM模型是衡量客户价值和利润贡献能力的重要工具，通过研究客户最近期的购买行为、购买频率以及购买金额来判定客户价值，从而实现对客户精细化地分层，为客户关系管理或者客户营销运营管理提供数据支持。"><a href="#1-RFM模型是衡量客户价值和利润贡献能力的重要工具，通过研究客户最近期的购买行为、购买频率以及购买金额来判定客户价值，从而实现对客户精细化地分层，为客户关系管理或者客户营销运营管理提供数据支持。" class="headerlink" title="(1). RFM模型是衡量客户价值和利润贡献能力的重要工具，通过研究客户最近期的购买行为、购买频率以及购买金额来判定客户价值，从而实现对客户精细化地分层，为客户关系管理或者客户营销运营管理提供数据支持。"></a>(1). RFM模型是衡量客户价值和利润贡献能力的重要工具，通过研究客户最近期的购买行为、购买频率以及购买金额来判定客户价值，从而实现对客户精细化地分层，为客户关系管理或者客户营销运营管理提供数据支持。</h2><table>
+<thead>
+<tr>
+<th>Letter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R</td>
+<td>最近的一次购买时间点</td>
+</tr>
+<tr>
+<td>F</td>
+<td>消费频率，下订单总量</td>
+</tr>
+<tr>
+<td>M</td>
+<td>消费总金额</td>
+</tr>
+</tbody></table>
+<p>因此需要求出与上述三个相关的衡量指标：即(至数据截止日）天数差R、消费频率F、消费金额M并合并数据创建新表RFM， 代码如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table RFM </span><br><span class="line">as select CustomerID, MAX(InvoiceNo) as InvoiceNo,MAX(Quantity) as Quantity,MAX(UnitPrice) as UnitPrice,</span><br><span class="line">MAX(Country) as Country,MAX(InvoiceDatetime) as InvoiceDatetime, </span><br><span class="line">DATEDIFF(&#x27;2011-12-09&#x27;,MAX(InvoiceDatetime)) as &#x27;R&#x27;,</span><br><span class="line">count(DISTINCT InvoiceNo) as &#x27;F&#x27;,</span><br><span class="line">round(SUM(Monetary),2) as &#x27;M&#x27;</span><br><span class="line">FROM data3</span><br><span class="line">group by CustomerID, InvoiceNo,Quantity,UnitPrice,Country,InvoiceDatetime</span><br><span class="line">ORDER BY R desc, F desc, M desc;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：group by 后面的字段必须和前面的select后面的字段一样,除了聚合函数字段，因此将你需要的字段放进max或min函数中，max:支持字符类型、数字类型。<br>** group by问题的两种解决办法：**</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select </span><br><span class="line">max(id) as id,username,password from users</span><br><span class="line">group by username,password </span><br><span class="line">order by id desc</span><br></pre></td></tr></table></figure>
+<p>方法2:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from</span><br><span class="line">(select apple from employee group by apple) as t1</span><br><span class="line">inner join</span><br><span class="line">(select distinct englishname from employee where apple in (select apple from employee group by apple )) as t2</span><br><span class="line">on t1.apple =t2.apple</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>求天数差： <strong>datediff(‘ ‘, max())</strong></li>
+<li>金额总和四舍五入保留小数点后两位：<strong>round(sum(‘ ‘),2)</strong></li>
+<li>多注意标点符号错误，especially comma</li>
+</ul>
+<p><img src="https://kiranli.github.io/images/UK9.png" alt="UK9"></p>
+<h2 id="2-create-RFMscore-table"><a href="#2-create-RFMscore-table" class="headerlink" title="(2). create RFMscore table"></a>(2). create RFMscore table</h2><p>RFM中三项R,F,M 的评分标准是需要根据行业特点和公司发展战略来定的，每个区间如何定，可以多参考行业报告，对比分析后来确定，因为本文行业是电商行业，所以本文评分标准确定如下：</p>
+<table>
+<thead>
+<tr>
+<th>R</th>
+<th>Rscore</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt;&#x3D; 30</td>
+<td>5</td>
+</tr>
+<tr>
+<td>(30,90]</td>
+<td>4</td>
+</tr>
+<tr>
+<td>(90,180]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(180,360]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>&gt; 360</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>F</th>
+<th>Fscore</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt; 80</td>
+<td>5</td>
+</tr>
+<tr>
+<td>(20,80]</td>
+<td>4</td>
+</tr>
+<tr>
+<td>(10,20]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(5,10]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>&lt;&#x3D; 5</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>M</th>
+<th>Mscore</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt; 10000</td>
+<td>5</td>
+</tr>
+<tr>
+<td>(5000,10000]</td>
+<td>4</td>
+</tr>
+<tr>
+<td>(1000,5000]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>(300,1000]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>&lt;&#x3D; 300</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>实现代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create table RFMscore as select *,</span><br><span class="line">(case when R &lt;=30 then 5</span><br><span class="line">      when R &gt;30 and R &lt;=90 then 4</span><br><span class="line">			when R &gt;90 and R &lt;= 180 then 3</span><br><span class="line">			when R &gt;180 and R &lt;360 then 2 else 1 end) as &#x27;Rscore&#x27;,</span><br><span class="line">(case when F &gt;80 then 5</span><br><span class="line">      when F &gt;20 and F &lt;=80 then 4</span><br><span class="line">			when F &gt;10 and F &lt;=20 then 3</span><br><span class="line">			when F &gt;5 and F &lt;=10 then 2 else 1 end) as &#x27;Fscore&#x27;,</span><br><span class="line">(case when M &gt; 10000 then 5</span><br><span class="line">      when M &gt; 5000 and M &lt;= 10000 then 4</span><br><span class="line">			when M &gt;1000 and M &lt;=5000 then 3</span><br><span class="line">			when M &gt;300 and M &lt;= 1000 then 2 else 1 end) as &#x27;Mscore&#x27;</span><br><span class="line">from RFM;</span><br></pre></td></tr></table></figure>
+<p><img src="https://kiranli.github.io/images/UK10.png" alt="UK10"></p>
+<ul>
+<li>注意 select* 后面的comma别忘记</li>
+</ul>
+<h2 id="3-create-RFMvalue-table"><a href="#3-create-RFMvalue-table" class="headerlink" title="(3). create RFMvalue table"></a>(3). create RFMvalue table</h2><h3 id="1-首先，根据K-means原理，计算R-F-M的三项的算数平均值Avg，了解分区间后RFMscore与平均值相比，处于怎样的位置，代码如下："><a href="#1-首先，根据K-means原理，计算R-F-M的三项的算数平均值Avg，了解分区间后RFMscore与平均值相比，处于怎样的位置，代码如下：" class="headerlink" title="-1. 首先，根据K-means原理，计算R,F,M的三项的算数平均值Avg，了解分区间后RFMscore与平均值相比，处于怎样的位置，代码如下："></a>-1. 首先，根据K-means原理，计算R,F,M的三项的算数平均值Avg，了解分区间后RFMscore与平均值相比，处于怎样的位置，代码如下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select ROUND(AVG(Rscore),1) as Ravg,</span><br><span class="line">         ROUND(AVG(Fscore),1) as Favg,</span><br><span class="line">         ROUND(AVG(Mscore),1) as Mavg from RFMscore;</span><br></pre></td></tr></table></figure>
+<p><img src="https://kiranli.github.io/images/UK11.png" alt="UK11"></p>
+<h3 id="2-create-RFMvalue-table-将RFMscore得分-vs-RFMavg平均值，对比后给RFMscore赋予1或0的value，代码如下："><a href="#2-create-RFMvalue-table-将RFMscore得分-vs-RFMavg平均值，对比后给RFMscore赋予1或0的value，代码如下：" class="headerlink" title="-2. create RFMvalue table: 将RFMscore得分 vs. RFMavg平均值，对比后给RFMscore赋予1或0的value，代码如下："></a>-2. create RFMvalue table: 将RFMscore得分 vs. RFMavg平均值，对比后给RFMscore赋予1或0的value，代码如下：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> create table RFMvalue as select *,</span><br><span class="line">(case when Rscore &gt; 3.8 then 1 else 0 end) as Rvalue,</span><br><span class="line">(case when Fscore &gt; 1.3 then 1 else 0 end) as Fvalue,</span><br><span class="line">(case when Mscore &gt; 2.0 then 1 else 0 end) as Mvalue from RFMscore;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK12.png" alt="UK12"></p>
+<h3 id="3-segment-customers：-根据RFM模型理论将客户分层"><a href="#3-segment-customers：-根据RFM模型理论将客户分层" class="headerlink" title="-3. segment customers： 根据RFM模型理论将客户分层"></a>-3. segment customers： 根据RFM模型理论将客户分层</h3><p><img src="https://kiranli.github.io/images/UK13.png" alt="UK13"></p>
+<p>根据RFM（图片来源：point小数点）理论，上升箭头表示大于均值，向下箭头表示小于均值。<br>写入中文字段前，修改编码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter table RFMvalue convert to character set utf8;</span><br></pre></td></tr></table></figure>
+<p>客户分层实现代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">create table RFMfinal as select *,</span><br><span class="line">(case when Rvalue=1 and Fvalue=1 and Mvalue=1 then &#x27;重要价值客户&#x27; </span><br><span class="line">      when Rvalue=0 and Fvalue=1 and Mvalue=1 then &#x27;重要唤回客户&#x27;</span><br><span class="line">      when Rvalue=1 and Fvalue=0 and Mvalue=1 then &#x27;重要深耕客户&#x27; </span><br><span class="line">      when Rvalue=1 and Fvalue=1 and Mvalue=0 then &#x27;潜力客户&#x27;</span><br><span class="line">      when Rvalue=0 and Fvalue=0 and Mvalue=1 then &#x27;重要挽留客户&#x27; </span><br><span class="line">      when Rvalue=1 and Fvalue=0 and Mvalue=0 then &#x27;新客户&#x27; </span><br><span class="line">      when Rvalue=0 and Fvalue=1 and Mvalue=0 then &#x27;一般维持客户&#x27; </span><br><span class="line">  else &#x27;流失客户&#x27; end) as &#x27;客户分类&#x27;</span><br><span class="line">from RFMvalue;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://kiranli.github.io/images/UK14.png" alt="UK14"></p>
+<p>下个篇章将做数据可视化Tableau的练习。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+              <a href="/tags/CRM/" rel="tag"># CRM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/15/data%20analysis9/" rel="next" title="CRM Analysis-RFM model 2">
+                  CRM Analysis-RFM model 2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

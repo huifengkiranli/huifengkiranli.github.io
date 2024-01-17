@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="From Nov’20 forward, Shanghai futures exchange pulp contract really skyrocket higher. In China domestic resale market, many of traders and wholesalers are benchmarking against the futures prices almo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shanghai pulp futures price volatility analysis">
+<meta property="og:url" content="http://huifengkiranli.github.io/2021/09/17/strategy4-pulp%20SFE/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="From Nov’20 forward, Shanghai futures exchange pulp contract really skyrocket higher. In China domestic resale market, many of traders and wholesalers are benchmarking against the futures prices almo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://huifengkiranli.github.io/images/strategy4.PNG">
+<meta property="article:published_time" content="2021-09-17T16:36:27.000Z">
+<meta property="article:modified_time" content="2022-07-26T14:17:33.869Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pricing">
+<meta property="article:tag" content="Pulp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huifengkiranli.github.io/images/strategy4.PNG">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2021/09/17/strategy4-pulp%20SFE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2021/09/17/strategy4-pulp%20SFE/","path":"2021/09/17/strategy4-pulp SFE/","title":"Shanghai pulp futures price volatility analysis"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Shanghai pulp futures price volatility analysis | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2021/09/17/strategy4-pulp%20SFE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Shanghai pulp futures price volatility analysis | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shanghai pulp futures price volatility analysis
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-09-17 18:36:27" itemprop="dateCreated datePublished" datetime="2021-09-17T18:36:27+02:00">2021-09-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Strategy/" itemprop="url" rel="index"><span itemprop="name">Strategy</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://huifengkiranli.github.io/images/strategy4.PNG" alt="HV1 "></p>
+<p>From Nov’20 forward, Shanghai futures exchange pulp contract really skyrocket higher. In China domestic resale market, many of traders and wholesalers are benchmarking against the futures prices almost weekly. That keeps pulp futures and resale prices tightly tighten together. Typically domestic resale prices we’ve looked at them as pulp near-term sentiment indicators. So in this blog post, I’d like to analyze pulp futures price historical volatility with Python to understand pulp price movement. </p>
+<span id="more"></span>
+
+<h3 id="What-is-historical-volatility"><a href="#What-is-historical-volatility" class="headerlink" title="What is historical volatility?"></a>What is historical volatility?</h3><p>Historical volatility (HV) is a measurement of how much the price of the asset has changed on average during the certain period of time. HV shows how much an asset has moved from the average mean in the given period, widely used in stocks or any asset in trading area. </p>
+<p>When the prices increases rapidly or decreases rapidly and then HV is rising; when the prices are in a sideways zone or the prices are steadily increasing or decreasing, then the HV falls.</p>
+<p>When HV is falling, we can say that the uncertainty of the asset prices is reduced and a stable market can be seen. But <strong>HV does not measure direction, it only measures how much the asset price is deviating from its average</strong>. HV is normally calculated by making use of standard deviation. </p>
+<h3 id="A-first-look-at-the-data"><a href="#A-first-look-at-the-data" class="headerlink" title="A first look at the data"></a>A first look at the data</h3><p>I compared the Shanghai 3-month futures exchange contract daily closing price, including species of wood-pulp (SP), Copper (CU), Fuel oil (FU) and Steel rebar (RB) to understand the commodity market. Price unit is RMB per ton.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np </span><br><span class="line">df=pd.read_excel(r&#x27;C:\Users\xxxx&#x27;,sheet_name=&#x27;3-month SFE comparison&#x27;).set_index(&#x27;Date&#x27;)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-3.PNG" width="300"></p><p align = "center" > 
+</p>
+ Here I'm looking at the futures prices since  June 2019, which is the advent of the Shanghai future exchange pulp contract. 
+ 
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">df.plot().update_layout(autosize=False,width=900,height=500,</span><br><span class="line">                                title=&#123;&#x27;text&#x27;:&quot;SHFE contract daily closing price&quot;,&#x27;y&#x27;:0.95,&#x27;x&#x27;:0.5,&#x27;xanchor&#x27;:&#x27;center&#x27;,&#x27;yanchor&#x27;:&#x27;top&#x27;&#125;, </span><br><span class="line">                                yaxis=dict(title=&#x27;Price, RMB/ton&#x27;),</span><br><span class="line">                               legend_title=&quot;Futures species&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-1.PNG" width="400"></p><p align = "center" > 
+</p>
+Typically I'm looking at pulp futures exchange contract prices, and it's difficult to tease out the difference in the development over Jul 2019-Aug 2021, because prices have gone horizontal. So I'll remove the copper prices from the chart and see the difference. 
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">df2=df.loc[:,[&#x27;SP&#x27;,&#x27;FU&#x27;,&#x27;RB&#x27;]]</span><br><span class="line">df2.plot().update_layout(autosize=False,width=900,height=500,</span><br><span class="line">                                title=&#123;&#x27;text&#x27;:&quot;SHFE daily contract closing price&quot;,&#x27;y&#x27;:0.95,&#x27;x&#x27;:0.5,&#x27;xanchor&#x27;:&#x27;center&#x27;,&#x27;yanchor&#x27;:&#x27;top&#x27;&#125;, </span><br><span class="line">                                yaxis=dict(title=&#x27;Price, RMB/ton&#x27;),</span><br><span class="line">                               legend_title=&quot;Futures species&quot;</span><br><span class="line">                               )</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-8.PNG" width="400"></p><p align = "center" > 
+</p>
+We can see from the chart that, over the period fuel oil (FU) futures prices have high HV as the COVID hit the demand for fuel oil hardly over 2019-2020 and prices dropped down sharply, but demand was improving since 2021 due to easing COVID and the prices up. However if we look at prices changes in 2021, it seems pulp (SP) and steel rebar (RB) futures prices have higher HV. We can verify that with Python next. 
+
+<h3 id="Compute-daily-returns-and-daily-standard-deviations-of-returns"><a href="#Compute-daily-returns-and-daily-standard-deviations-of-returns" class="headerlink" title="Compute daily returns and daily standard deviations of returns"></a>Compute daily returns and daily standard deviations of returns</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">log_returns=np.log(df/df.shift(1)).dropna()</span><br><span class="line">log_returns</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-4.PNG" width="300"></p><p align = "center" > 
+</p>
+Compute daily returns of four future species and remove the null results. 
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">daily_std=log_returns.std()</span><br><span class="line">daily_std</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-5.PNG" width="300"></p><p align = "center" > 
+</p>
+Calculate daily standard deviation of returns, and we can see, Fuel oil has the highest HV among these four futures species, which is in line with previous assumption. 
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">annualized_vol=daily_std*np.sqrt(252)</span><br><span class="line">annualized_vol*100</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-9.PNG" width="400"></p><p align = "center" > 
+</p>
+
+<p>Annualized standard deviation of returns.</p>
+<h3 id="Plot-histogram-of-daily-returns-volatility"><a href="#Plot-histogram-of-daily-returns-volatility" class="headerlink" title="Plot histogram of daily returns volatility"></a>Plot histogram of daily returns volatility</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># import python library for chart</span><br><span class="line">import plotly.offline as pyo</span><br><span class="line">import plotly.graph_objects as go</span><br><span class="line">from plotly.subplots import make_subplots</span><br><span class="line">pyo.init_notebook_mode(connected=True)</span><br><span class="line">pd.options.plotting.backend=&#x27;plotly&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">fig =make_subplots(rows=2,cols=2)</span><br><span class="line">trace0=go.Histogram(x=log_returns[&#x27;SP&#x27;],name=&#x27;Pulp (SP)&#x27;)</span><br><span class="line">trace1=go.Histogram(x=log_returns[&#x27;CU&#x27;],name=&#x27;Copper (CU)&#x27;)</span><br><span class="line">trace2=go.Histogram(x=log_returns[&#x27;FU&#x27;],name=&#x27;FuelOil (FU)&#x27;)</span><br><span class="line">trace3=go.Histogram(x=log_returns[&#x27;RB&#x27;],name=&#x27;SteelRebar (RB)&#x27;)</span><br><span class="line"></span><br><span class="line">fig.append_trace(trace0,1,1)</span><br><span class="line">fig.append_trace(trace1,1,2)</span><br><span class="line">fig.append_trace(trace2,2,1)</span><br><span class="line">fig.append_trace(trace3,2,2)</span><br><span class="line"></span><br><span class="line">fig.update_layout(autosize=False,width=800,height=500,</span><br><span class="line">                  title=&#123;&#x27;text&#x27;:&quot;Frenquency of daily returns&quot;,&#x27;y&#x27;:0.88,&#x27;x&#x27;:0.5,&#x27;xanchor&#x27;:&#x27;center&#x27;,&#x27;yanchor&#x27;:&#x27;top&#x27;&#125;,</span><br><span class="line">                 xaxis1=dict(title=&#x27;SP Annualized Vol: &#x27;+str(np.round(annualized_vol[&#x27;SP&#x27;]*100,1))+&quot;%&quot;),</span><br><span class="line">                  xaxis2=dict(title=&#x27;CU Annualized Vol: &#x27;+str(np.round(annualized_vol[&#x27;CU&#x27;]*100,1))+&quot;%&quot;),</span><br><span class="line">                  xaxis3=dict(title=&#x27;FU Annualized Vol: &#x27;+str(np.round(annualized_vol[&#x27;FU&#x27;]*100,1))+&quot;%&quot;),</span><br><span class="line">                  xaxis4=dict(title=&#x27;RB Annualized Vol: &#x27;+str(np.round(annualized_vol[&#x27;RB&#x27;]*100,1))+&quot;%&quot;))</span><br><span class="line">                  </span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-7.PNG" width="400"></p><p align = "center" > 
+</p>
+
+
+<p>Pulp futures annualized HV is 16.2%, which is on par with copper HV, while below steel rebar historical volatility and far behind fuel oil HV. If we look at pulp small chart, which is clearly a normal distribution. The highest bar with value of 116, what it means is that 116 days out of 569 days have daily returns between 0-0.2%.</p>
+<h3 id="Trailing-volatility-over-time-30-days"><a href="#Trailing-volatility-over-time-30-days" class="headerlink" title="Trailing volatility over time-30 days"></a>Trailing volatility over time-30 days</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TRADING_DAYS=30</span><br><span class="line">volatility=log_returns.rolling(window=TRADING_DAYS).std()*np.sqrt(TRADING_DAYS)*100</span><br><span class="line">volatility.plot().update_layout(autosize=False,width=800,height=500,</span><br><span class="line">                                title=&#123;&#x27;text&#x27;:&quot;Futures 30-days volatility&quot;,&#x27;y&#x27;:0.95,&#x27;x&#x27;:0.5,&#x27;xanchor&#x27;:&#x27;center&#x27;,&#x27;yanchor&#x27;:&#x27;top&#x27;&#125;, </span><br><span class="line">                                yaxis=dict(title=&#x27;Volatility%&#x27;),</span><br><span class="line">                               legend_title=&quot;Futures species&quot;</span><br><span class="line">                               )</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/strategy4-2.PNG" width="400"></p><p align = "center" > 
+</p>
+
+<p>From the chart, we can see commodities HV in 2020 is significant large, while if we look at the HV wave times, 2021 is a year of roller-coaster with 2-3 waves of HV changes. </p>
+<h3 id="Learnings-from-this-volatile-period"><a href="#Learnings-from-this-volatile-period" class="headerlink" title="Learnings from this volatile period"></a>Learnings from this volatile period</h3><p>As the futures market got out well ahead of the physical market or the spot market. And there was an arbitrage opportunity that existed, where you could go short the futures and go long on the physical market and the resale, and that supported resale prices, as resale prices chased the futures market higher. While the market need time to find firm footing to support price increasing, if not, the speculative demand which was pulling the prices rapidly higher is likely to be removed from the market at least for the short term.</p>
+<p>In 2021, this pulp price record run has really put upward pressure on the paper prices. What we can learn from this volatile year, for manufacturers or paper producers? </p>
+<p>Overall, I think the pandemic has shown us a few things and I guess the most notable one is that, the market is not only going up, and is not only falling, but can go both ways and go abrupt to stop. And what that means, I think the first implication for business operations is that <strong>the variable cost come at a huge premium, the more assets you have and more fixed your cost structure is, the more difficult it is for you to deal with this kind of volatility</strong>. </p>
+<p>I would hope that the volatility would come down in the next couples of years, so that this learning is less relevant going forward. But if we’re looking at the future, we might see in the future, frequent waves of pandemic, and then for sure, that is something that most companies should consider.</p>
+<p>Reference:</p>
+<ul>
+<li>Investopedia. 2021. Definition Historical Volatility (HV). [online] Available at: <a target="_blank" rel="noopener" href="https://www.investopedia.com/terms/h/historicalvolatility.asp">https://www.investopedia.com/terms/h/historicalvolatility.asp</a> [Accessed 22 August 2021].</li>
+<li>WallStreetMojo. 2020. Volatility Formula. [online] Available at: <a target="_blank" rel="noopener" href="https://www.wallstreetmojo.com/volatility-formula/">https://www.wallstreetmojo.com/volatility-formula/</a> [Accessed 3 September 2022].</li>
+<li>H, P., 2022. Historical volatility - What is historical volatility and how to interpret. [online] blog. Available at: <a target="_blank" rel="noopener" href="https://indextradingstrategies.com/blog/historical-volatility/">https://indextradingstrategies.com/blog/historical-volatility/</a> [Accessed 21 September 2022].</li>
+<li>Youtube.com. 2021. [online] Available at: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=j4c2XqiJzRU">https://www.youtube.com/watch?v=j4c2XqiJzRU</a> [Accessed 4 July 2022].</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Pricing/" rel="tag"># Pricing</a>
+              <a href="/tags/Pulp/" rel="tag"># Pulp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/13/stategy1/" rel="prev" title="What is strategy?">
+                  <i class="fa fa-chevron-left"></i> What is strategy?
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/05/strategy2-Shell2/" rel="next" title="Case study - Shell Strategy Day 2021">
+                  Case study - Shell Strategy Day 2021 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

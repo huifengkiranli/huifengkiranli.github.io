@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Predicting the future is always a dangerous game, especially this volatile period, it’s difficult to use history to inform the future. But it’s still worth to learning how the forecast model perform u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express mail forecast modelling with Python">
+<meta property="og:url" content="http://huifengkiranli.github.io/2021/11/26/Data%20analysis10-Facebook%20forecast/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="Predicting the future is always a dangerous game, especially this volatile period, it’s difficult to use history to inform the future. But it’s still worth to learning how the forecast model perform u">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-26T16:36:27.000Z">
+<meta property="article:modified_time" content="2023-01-29T12:38:36.694Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="Demand forecast">
+<meta property="article:tag" content="Demand">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Macro economics">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2021/11/26/Data%20analysis10-Facebook%20forecast/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2021/11/26/Data%20analysis10-Facebook%20forecast/","path":"2021/11/26/Data analysis10-Facebook forecast/","title":"Express mail forecast modelling with Python"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Express mail forecast modelling with Python | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2021/11/26/Data%20analysis10-Facebook%20forecast/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Express mail forecast modelling with Python | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Express mail forecast modelling with Python
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-11-26 17:36:27" itemprop="dateCreated datePublished" datetime="2021-11-26T17:36:27+01:00">2021-11-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Data-analysis/" itemprop="url" rel="index"><span itemprop="name">Data analysis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Predicting the future is always a dangerous game, especially this volatile period, it’s difficult to use history to inform the future. But it’s still worth to learning how the forecast model perform under the huge uncertainty. So in this blog post I’m going to learn how to do time-series analysis and forecasts with the Facebook Prophet Model.</p>
+<span id="more"></span>
+<h3 id="What-is-Facebook-Prophet-Model"><a href="#What-is-Facebook-Prophet-Model" class="headerlink" title="What is Facebook Prophet Model"></a><strong>What is Facebook Prophet Model</strong></h3><p>Forecasting with time series models can be used by businesses for many purposes, i.e.. to optimize sales, improve supply chain planning. <strong>Time series analysis</strong> is a statistical method to analyze the past data within a specific periods and extract the meaningful statistical information of the data to forecast the future. </p>
+<p>There is also a multitude of techniques can use with Python, majority of the advanced techniques put considerable requirements on both the data and analysts, often making it hard to come up with stable performing forecast models. The nice thing about <strong>Facebook Prophet model</strong> is quite friendly for people who are not good at writing complicating codes and without strong statistics knowledge, like me. What I need to do is define and put some specific number as parameters, like seasonality, holidays and where you know important business dates and events beforehand.</p>
+<p>Prophet is also quite easy to tune with its understandable hyper-parameters. In addition, it is extendable, so if you need to add additional regressors or seasonalities you can do so easily. Today, I’m trying to do some basic demand forecast here. </p>
+<h3 id="The-problem-to-solve"><a href="#The-problem-to-solve" class="headerlink" title="The problem to solve"></a><strong>The problem to solve</strong></h3><p>E-commerce grows significantly these years and drives demand for paper &amp; board demand. I analyze the correlation relationship between mail parcel volume and goods sales before, there’s high correlation there, So an idea is that analyzing mail parcel volume development and demand forecast to see if it’s reasonable to apply in goods or paper&amp;board demand growth forecast.   </p>
+<p>I’m going to provide some insights into the dataset and provide a forecast model to estimate future mail parcel volume development. Let’s get started!</p>
+<h3 id="The-plan"><a href="#The-plan" class="headerlink" title="The plan"></a><strong>The plan</strong></h3><p>Before I start working I make a brief work breakdown as follows:</p>
+<ul>
+<li>Visually inspect the data and control for missing data and outliers</li>
+<li>If needed, transform the data</li>
+<li>Make a first prediction model without any tuning and validate the model.</li>
+<li>Tune and test the model with the addition of special events and dates</li>
+<li>Tune and test the model with rainfall and temperature as additional regressors </li>
+<li>Tuning hyperparameters</li>
+</ul>
+<p>Last two steps will test in the future after more learnings about statistics. </p>
+<h3 id="A-first-look-at-the-data"><a href="#A-first-look-at-the-data" class="headerlink" title="A first look at the data"></a><strong>A first look at the data</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd</span><br><span class="line">import numpy as np</span><br><span class="line">import itertools</span><br><span class="line">%matplotlib inline</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">import plotly.offline as pyoff</span><br><span class="line">import plotly.graph_objs as go</span><br><span class="line">from sklearn import preprocessing</span><br><span class="line">from fbprophet import Prophet</span><br><span class="line">from fbprophet.plot import add_changepoints_to_plot</span><br><span class="line">from fbprophet.diagnostics import cross_validation</span><br><span class="line">from fbprophet.diagnostics import performance_metrics</span><br><span class="line">from fbprophet.plot import plot_cross_validation_metric</span><br><span class="line">from scipy.stats import boxcox</span><br><span class="line">from scipy.special import inv_boxcox</span><br><span class="line">pd.set_option(&#x27;display.max_row&#x27;, 1000)</span><br><span class="line">import numpy as np</span><br><span class="line">import itertools</span><br><span class="line">%matplotlib inline</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">import numpy as np</span><br><span class="line">import plotly.offline as pyoff</span><br><span class="line">import plotly.graph_objs as go</span><br><span class="line">from sklearn import preprocessing</span><br><span class="line">from fbprophet import Prophet</span><br><span class="line">from fbprophet.plot import add_changepoints_to_plot</span><br><span class="line">from fbprophet.diagnostics import cross_validation</span><br><span class="line">from fbprophet.diagnostics import performance_metrics</span><br><span class="line">from fbprophet.plot import plot_cross_validation_metric</span><br><span class="line">from scipy.stats import boxcox</span><br><span class="line">from scipy.special import inv_boxcox</span><br><span class="line">pd.set_option(&#x27;display.max_row&#x27;, 1000)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1=pd.read_excel(r&#x27;C:\Users\k416398\OneDrive - UPM Kymmene Oyj\Documents\Task\Python case/PythonCaseData.xlsx&#x27;,sheet_name=&#x27;Retails&#x27;)</span><br><span class="line">df=data1[[&#x27;Month&#x27;,&#x27;Express_mail_pieces&#x27;]].dropna()</span><br><span class="line">df.drop(df.head(105).index,axis=0,inplace=True)</span><br><span class="line">df.plot()</span><br><span class="line">df.head()</span><br><span class="line">df.info()</span><br><span class="line">df.columns = [&#x27;ds&#x27;, &#x27;y&#x27;]</span><br><span class="line">df.tail()</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-1.png" width="300"></p><p align = "center" > Fig 1: Data frame
+</p>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">m = Prophet(seasonality_mode=&#x27;multiplicative&#x27;) #m = Prophet(changepoint_range=0.5)</span><br><span class="line">m.fit(df)</span><br><span class="line"># forecasst 365 days ahead (create time frame)</span><br><span class="line">future = m.make_future_dataframe(periods=365)</span><br><span class="line">forecast = m.predict(future)</span><br><span class="line">forecast.head(10)</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-2.PNG" width="500"></p><p align = "center" > Fig 2: Forecast Data frame
+</p>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m.plot(forecast)</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-3.png" width="500"></p><p align = "center" > Fig 3: Data plot
+</p>
+
+<p>If you want to view all of them you could use the following code:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#list all the change points in the model</span><br><span class="line"></span><br><span class="line">deltas=m.params[&#x27;delta&#x27;].mean(0)</span><br><span class="line">cp=pd.DataFrame(m.changepoints)</span><br><span class="line">cp[&#x27;deltas&#x27;]=deltas</span><br><span class="line">fig=go.Figure()</span><br><span class="line">#create and style traces</span><br><span class="line">fig.add_trace(go.Bar(x=cp[&#x27;ds&#x27;],y=cp[&#x27;deltas&#x27;],name=&#x27;CPs&#x27;))</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-4.png" width="500"></p><p align = "center" > Fig 4: Data plot
+</p>
+
+<p>We can also plot all the components that make up the model: trend, different seasonalities and holidays — I’ll cover that in more detail later on. For now let’s just look at the components using the built-in plotting method.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m.plot_components(forecast)</span><br></pre></td></tr></table></figure>
+
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-5.PNG" width="500"></p><p align = "center" > Fig 5: The model components
+</p>
+
+<p>It seems that we have a clear positive trend and that Jan&#x2F;Feb and Nov are the months when most people shopping online, a strong yearly seasonality.</p>
+<h2 id="Validating-results"><a href="#Validating-results" class="headerlink" title="Validating results"></a><strong>Validating results</strong></h2><h3 id="Cross-validation"><a href="#Cross-validation" class="headerlink" title="Cross validation"></a><strong>Cross validation</strong></h3><p>How the model performs? If we are making progress? So we need some form of validation. The Prophet library makes it possible to divide our historical data into training data and testing data for cross validation. The main concepts for cross validation with Prophet are:</p>
+<ul>
+<li><strong>Training data (initial)</strong>: The amount of data set aside for training. </li>
+<li><strong>Horizon</strong>: The data set aside for validation. If you don’t define a period the model will be fitted with Horizon&#x2F;2.</li>
+<li><strong>Cutoff (period)</strong>: a forecast is made for every observed point between cutoff and cutoff + horizon.</li>
+</ul>
+<p>The resulting data frame can now be used to compute error measures of  <em>yhat vs. y</em>. Below I’ve plotted a chart with some markers to help understand in a more visual way. </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">cutoffs = df_cv.groupby(&#x27;cutoff&#x27;).mean().reset_index()[&#x27;cutoff&#x27;]</span><br><span class="line">cutoff = df_cv[&#x27;cutoff&#x27;].unique()[0]</span><br><span class="line">df_cv = df_cv[df_cv[&#x27;cutoff&#x27;].values == cutoff]</span><br><span class="line"></span><br><span class="line">fig = plt.figure(facecolor=&#x27;w&#x27;, figsize=(10, 6))</span><br><span class="line">ax = fig.add_subplot(111)</span><br><span class="line">ax.plot(m.history[&#x27;ds&#x27;].values, m.history[&#x27;y&#x27;], &#x27;k.&#x27;)</span><br><span class="line">ax.plot(df_cv[&#x27;ds&#x27;].values, df_cv[&#x27;yhat&#x27;], ls=&#x27;-&#x27;, c=&#x27;#0072B2&#x27;)</span><br><span class="line">ax.fill_between(df_cv[&#x27;ds&#x27;].values, df_cv[&#x27;yhat_lower&#x27;],</span><br><span class="line">                df_cv[&#x27;yhat_upper&#x27;], color=&#x27;#0072B2&#x27;,</span><br><span class="line">                alpha=0.2)</span><br><span class="line">#ax.axvline(x=pd.to_datetime(cutoff), c=&#x27;gray&#x27;, lw=4, alpha=0.5)</span><br><span class="line">ax.set_ylabel(&#x27;y&#x27;)</span><br><span class="line">ax.set_xlabel(&#x27;ds&#x27;)</span><br><span class="line"></span><br><span class="line"># Making all the vlines for cutoffs</span><br><span class="line">for item in cutoffs:</span><br><span class="line">  ax.axvline(x=pd.to_datetime(item), c=&#x27;red&#x27;, lw=2, alpha=0.5, ls=&#x27;--&#x27;)</span><br><span class="line"></span><br><span class="line"># Adding text to describe the data set splits</span><br><span class="line">ax.text(x=pd.to_datetime(&#x27;2012-01-01&#x27;),y=12, s=&#x27;Initial training data&#x27;, color=&#x27;black&#x27;,</span><br><span class="line">       fontsize=16, fontweight=&#x27;bold&#x27;, alpha=0.8)</span><br><span class="line">ax.text(x=pd.to_datetime(&#x27;2015-01-01&#x27;),y=24, s=&#x27;Cutoffs&#x27;, color=&#x27;black&#x27;,</span><br><span class="line">       fontsize=16, fontweight=&#x27;bold&#x27;, alpha=0.8)</span><br><span class="line"></span><br><span class="line">ax.text(x=pd.to_datetime(cutoff) + pd.Timedelta(&#x27;2190 days&#x27;),y=24, s=&#x27;Horizon&#x27;, color=&#x27;black&#x27;,</span><br><span class="line">       fontsize=16, fontweight=&#x27;bold&#x27;, alpha=0.8)</span><br><span class="line"></span><br><span class="line">ax.axvline(x=pd.to_datetime(cutoff) + pd.Timedelta(&#x27;365 days&#x27;), c=&#x27;gray&#x27;, lw=4,</span><br><span class="line">           alpha=0.5, ls=&#x27;--&#x27;)</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-6.png" width="400"></p><p align = "center" > Fig 6: Showing training, cutoff and horizon periods
+</p>
+
+<h3 id="Getting-the-performance-metrics"><a href="#Getting-the-performance-metrics" class="headerlink" title="Getting the performance metrics"></a><strong>Getting the performance metrics</strong></h3><p>So we have now made our first forecast with the Prophet library. But how do we know if the results are any good? Fortunately, Prophet comes with some built-in performance metrics that can help us out. The performance metrics available are:</p>
+<ul>
+<li><strong>Mse</strong>: mean absolute error</li>
+<li><strong>Rmse</strong>: mean squared error</li>
+<li><strong>Mae</strong>: Mean average error</li>
+<li><strong>Mape</strong>: Mean average percentage error</li>
+<li><strong>Mdape</strong>: Median average percentage error</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.environ[&#x27;KMP_DUPLICATE_LIB_OK&#x27;]=&#x27;TRUE&#x27;</span><br><span class="line">#from fbprophet.diagnostics import cross_validation</span><br><span class="line">df_cv = cross_validation(m, initial=&#x27;730 days&#x27;, period=&#x27;180 days&#x27;, horizon = &#x27;365 days&#x27;)</span><br><span class="line">df_cv.head()</span><br><span class="line">df_p = performance_metrics(df_cv)</span><br><span class="line">df_p.head()</span><br></pre></td></tr></table></figure>
+<p>Listing the performance data frame gives us the following:</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-7.PNG" width="500"></p><p align = "center" > Fig 7: Performance metrics per day up to horizon
+</p>
+
+<p>To see how our model performs over time up to the horizon we can use the built-in plot called <code>plot_cross_validation_metric</code> , like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from fbprophet.plot import plot_cross_validation_metric</span><br><span class="line">fig = plot_cross_validation_metric(df_cv, metric=&#x27;rmse&#x27;)</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-8.png" width="500"></p><p align = "center" > Fig 8: Performance metrics per day up to horizon
+</p>
+We see that we got forecasts for each day up to the horizon. At the beginning, we see that the  _mean average percentage error_  (mape) is considerable but it also goes up considerably after a few days. Hopefully we can make this plot more performant as we start tuning our model.
+
+<p>As we proceed we want to compare our validation results, so I’ve chosen to make a spreadsheet on the side in which to store the intermediate results. Also, since we use transformed numbers (remember the Box Cox) we just use the percentage error metrics. To keep track, we collect the mean aggregated data from our cross validation like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df_p.mean()</span><br></pre></td></tr></table></figure>
+<p>Which gives a listing like this:</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-9.PNG" width="400"></p><p align = "center" > Fig 9: The mean of the cross validation data
+</p>
+
+<p>After our first run the results spreadsheet looks like this:</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-10.PNG" width="400"></p><p align = "center" > Fig 10: The results spreadsheet after the first run
+</p>
+Before moving on to improve our forecast model we’ll add two utility functions so we don’t need to change data all over the place if we want to test different cross validation set-ups. 
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def getPerfomanceMetrics(m):</span><br><span class="line">  return performance_metrics(getCrossValidationData(m))</span><br><span class="line">def getCrossValidationData(m):</span><br><span class="line"> return cross_validation(m, initial=&#x27;730 days&#x27;, period = &#x27;180 days&#x27;, horizon = &#x27;365 days&#x27;)</span><br></pre></td></tr></table></figure>
+<h2 id="Improving-forecast"><a href="#Improving-forecast" class="headerlink" title="Improving forecast"></a><strong>Improving forecast</strong></h2><h3 id="Adding-holidays"><a href="#Adding-holidays" class="headerlink" title="Adding holidays"></a><strong>Adding holidays</strong></h3><p>Prophet has several ways of adding holidays and special events. The easiest and most convenient one is to use the built-in national holidays. The holidays for each country are provided by the holidays package in Python. A list of available countries, and the country name to use, is available on their page:  <a target="_blank" rel="noopener" href="https://github.com/dr-prodigy/python-holidays">https://github.com/dr-prodigy/python-holidays</a>. We need Chinese holidays so we do it like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"># https://futurice.com/blog/business-forecasting-with-facebook-prophet</span><br><span class="line">m = Prophet()</span><br><span class="line">m.add_country_holidays(country_name=&#x27;CN&#x27;)</span><br><span class="line">m.fit(df)</span><br><span class="line"># List the holiday names</span><br><span class="line">m.train_holiday_names</span><br><span class="line">#bring in holidays</span><br><span class="line"></span><br><span class="line">springs = pd.DataFrame(&#123;</span><br><span class="line">    &#x27;holiday&#x27;: &#x27;springfestival&#x27;,</span><br><span class="line">    &#x27;ds&#x27;: pd.to_datetime([&#x27;2012-01-23&#x27;, &#x27;2013-02-10&#x27;, &#x27;2014-01-31&#x27;,</span><br><span class="line">                          &#x27;2015-02-19&#x27;, &#x27;2016-02-08&#x27;, &#x27;2017-01-28&#x27;,</span><br><span class="line">                          &#x27;2019-02-05&#x27;, &#x27;2020-01-25&#x27;, &#x27;2021-02-12&#x27;]),</span><br><span class="line">    &#x27;lower_window&#x27;: -30,</span><br><span class="line">    &#x27;upper_window&#x27;: 10</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">double11s = pd.DataFrame(&#123;</span><br><span class="line">    &#x27;holiday&#x27;: &#x27;double11&#x27;,</span><br><span class="line">    &#x27;ds&#x27;: pd.to_datetime([&#x27;2011-11-11&#x27;, &#x27;2012-11-11&#x27;, &#x27;2013-11-11&#x27;, &#x27;2014-11-11&#x27;, &#x27;2015-11-11&#x27;,</span><br><span class="line">                          &#x27;2016-11-11&#x27;, &#x27;2017-11-11&#x27;, &#x27;2018-11-11&#x27;,</span><br><span class="line">                          &#x27;2019-11-11&#x27;, &#x27;2020-11-11&#x27;]),</span><br><span class="line">    &#x27;lower_window&#x27;: -7,</span><br><span class="line">    &#x27;upper_window&#x27;: 10</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">holidays = pd.concat((springs, double11s))</span><br><span class="line">#fit and predict</span><br><span class="line">m = Prophet(holidays=holidays)</span><br><span class="line">forecast = m.fit(df).predict(future)</span><br><span class="line">forecast[(forecast[&#x27;springfestival&#x27;] + forecast[&#x27;double11&#x27;]).abs() &gt; 0][[&#x27;ds&#x27;, &#x27;springfestival&#x27;, &#x27;double11&#x27;]][-10:]</span><br><span class="line">getPerfomanceMetrics(m).mean()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-11.PNG" width="400"></p><p align = "center" > Fig 11: The mean of the validation data after adding holidays
+</p>
+
+<p>After our second run the results spreadsheet looks like this:</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-12.PNG" width="400"></p><p align = "center" > Fig 12: The results spreadsheet after the second run
+</p>
+
+<p>As we can see the holiday tuning has a significant backfire forecast effect, I need to figure out what is the problem. But I’ll still test to see what actual forecast look like now. </p>
+<h3 id="Making-an-actual-forecast"><a href="#Making-an-actual-forecast" class="headerlink" title="Making an actual forecast"></a><strong>Making an actual forecast</strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fig = go.Figure()</span><br><span class="line"># Create and style traces</span><br><span class="line">fig.add_trace(go.Scatter(x=df[&#x27;ds&#x27;], y=df[&#x27;y&#x27;], name=&#x27;Actual&#x27;,))</span><br><span class="line">fig.add_trace(go.Scatter(x=forecast[&#x27;ds&#x27;], y=forecast[&#x27;yhat&#x27;], name=&#x27;Prediction&#x27;,))</span><br><span class="line">fig.add_trace(go.Scatter(x=forecast[&#x27;ds&#x27;], y=forecast[&#x27;trend&#x27;], name=&#x27;Trend&#x27;,))</span><br><span class="line">#fig.add_trace(go.Scatter(x=forecast[&#x27;ds&#x27;], y=forecast[&#x27;yearly&#x27;], name=&#x27;Yearly&#x27;,))</span><br><span class="line">#fig.add_trace(go.Scatter(x=forecast[&#x27;ds&#x27;], y=forecast[&#x27;holidays&#x27;], name=&#x27;Holidays&#x27;,))</span><br><span class="line">fig.show()</span><br></pre></td></tr></table></figure>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/dataanalysis10-13.png" width="500"></p><p align = "center" > Fig 13: Plot with real world numbers
+</p>
+
+<p>Here two charts, the blue line means actual growth, and red line represents the model predicted growth, actually you can see the prediction model performed not very good here, it fit well on historical data to some extent. And MAPE is a metric to measure the prediction accuracy, what does the percentage really mean? like 13.29% means the average difference between the forecasted value and the actual value is 13.29%. Then what is the good value for MAPE, one may ask. I do spend some time looking into it, the answer is there is no “standard” MAPE value because it can vary so much by the type of industry.</p>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><strong>Conclusion</strong></h3><p>In this article, I’m trying to learn how to use the Facebook Prophet library to make time series forecasts.  We started out with a mean percentage average error of ~10% and ended up with ~13%, the result seems not so usable. I still need to learn more about the model and parameter. After trying this forecast model to predict future value in the future for business area, it’s not only about how to write the code, it is more about how well I understand the factors that contribute to the model, and what specific parameter should be put into the model, in terms of the statistical knowledge and business understanding, even the market dynamics. </p>
+<p>Predicting the future is always a dangerous game, especially current volatile market after COVID, but I think there are two fundamental axis here. One is the degree to which the world recovers from the economic fallout associated with COVID, and two is the speed at which we well trace the dynamics of the market, which really takes time and effort. Certainly I should spend more time on statistics knowledge and market dynamics. </p>
+<p>Reference:</p>
+<ul>
+<li>Futurice.com. 2020. <em>Business forecasting with Facebook Prophet | Futurice</em>. [online] Available at: <a target="_blank" rel="noopener" href="https://futurice.com/blog/business-forecasting-with-facebook-prophet">https://futurice.com/blog/business-forecasting-with-facebook-prophet</a> [Accessed 9 October 2021].</li>
+<li>Medium. 2021. <em>Forecasting at scale with Facebook Prophet — a case study on its merits &amp; limitations</em>. [online] Available at: <a target="_blank" rel="noopener" href="https://towardsdatascience.com/forecasting-at-scale-with-facebook-prophet-a-case-study-on-its-merits-limitations-b24a694dd7c7">https://towardsdatascience.com/forecasting-at-scale-with-facebook-prophet-a-case-study-on-its-merits-limitations-b24a694dd7c7</a> [Accessed 22 September 2021].</li>
+<li>Zach, V., 2020. <em>What is Considered a Good Value for MAPE? - Statology</em>. [online] Statology. Available at: <a target="_blank" rel="noopener" href="https://www.statology.org/what-is-a-good-mape/">https://www.statology.org/what-is-a-good-mape/</a> [Accessed 22 October 2021].</li>
+<li>Kumar, U., 2020. <em>A quick look into the Sktime for time-series forecasting (codes included)</em>. [online] Earth Inversion. Available at: <a target="_blank" rel="noopener" href="https://www.earthinversion.com/machinelearning/a-quick-look-into-the-Sktime-for-time-series-forecasting/">https://www.earthinversion.com/machinelearning/a-quick-look-into-the-Sktime-for-time-series-forecasting/</a> [Accessed 22 September 2021].</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Demand-forecast/" rel="tag"># Demand forecast</a>
+              <a href="/tags/Demand/" rel="tag"># Demand</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/Macro-economics/" rel="tag"># Macro economics</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/11/05/economics2-Economic%20outlook%202022/" rel="prev" title="My baseline view on global macro outlook in 2022">
+                  <i class="fa fa-chevron-left"></i> My baseline view on global macro outlook in 2022
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/01/01/strategy3-Paper%20market%20in%202021/" rel="next" title="Learnings from paper market 2021-Value Chain Mindset">
+                  Learnings from paper market 2021-Value Chain Mindset <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

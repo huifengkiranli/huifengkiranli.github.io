@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Fig. 1 Selling prices model   This is a model for calculating selling prices given the cost, target margin, discount and rebate through Excel Solver. As you can see from the result above, even though">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selling Prices for Target Margin, Discount and Rebate">
+<meta property="og:url" content="http://huifengkiranli.github.io/2022/05/27/pricing3/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="Fig. 1 Selling prices model   This is a model for calculating selling prices given the cost, target margin, discount and rebate through Excel Solver. As you can see from the result above, even though">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-27T16:36:27.000Z">
+<meta property="article:modified_time" content="2022-12-04T16:01:11.341Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="Discount">
+<meta property="article:tag" content="Rebate">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2022/05/27/pricing3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2022/05/27/pricing3/","path":"2022/05/27/pricing3/","title":"Selling Prices for Target Margin, Discount and Rebate"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Selling Prices for Target Margin, Discount and Rebate | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2022/05/27/pricing3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Selling Prices for Target Margin, Discount and Rebate | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Selling Prices for Target Margin, Discount and Rebate
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-05-27 18:36:27" itemprop="dateCreated datePublished" datetime="2022-05-27T18:36:27+02:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Pricing/" itemprop="url" rel="index"><span itemprop="name">Pricing</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing3-4.PNG" width="700"></p><p align = "center" > Fig. 1 Selling prices model
+</p>
+
+<p>This is a model for calculating selling prices given the cost, target margin, discount and rebate through Excel Solver. As you can see from the result above, even though cost is same for three product, different target discount and rebate results in varied gross profit. Managing cost is important to manage profit, while in this case, how to set target discount and rebate is vital for profit generation.  Discount and rebate are commonly used terms in today’s dynamic markets, both are distinct forms of price-cuts that directly or indirectly promote the overall sales of a business. They may sound similar, however, there is a considerable difference between discount and rebate. A good pricing practice should review discount or rebate strategy and start by setting goals at least annually. </p>
+<span id="more"></span>
+<h1 id="1-Difference-Between-Discount-and-Rebate"><a href="#1-Difference-Between-Discount-and-Rebate" class="headerlink" title="1. Difference Between Discount and Rebate"></a>1. Difference Between Discount and Rebate</h1><p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing3-1.PNG" width="700"></p><p align = "center" > Fig. 2 Discount vs. Rebate
+</p>
+
+<h1 id="2-Discount"><a href="#2-Discount" class="headerlink" title="2. Discount"></a>2. Discount</h1><p>For many companies, in order to push customer to buy a bit more volume of product, so it can reach the targeted volume, the companies tend to provide some discount. While sometimes unstructured discounting does increase sales to some degree, rather increase company profit. It is important to create a structured customer reward mechanism to guide sales people to more profitable contracts by defining different type of discount for different specific purpose.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing3-3.jpg" width="700"></p><p align = "center" > Fig. 3 Price waterfall with structured discount
+</p>
+
+<h2 id="Dangers-of-Volume-discounts"><a href="#Dangers-of-Volume-discounts" class="headerlink" title="Dangers of Volume discounts"></a>Dangers of Volume discounts</h2><ul>
+<li>Forward buying, diverting</li>
+<li>Larger, more powerful customers take advantage of small customers</li>
+<li>According confusion about costs, margins, prices</li>
+</ul>
+<h1 id="3-Rebate"><a href="#3-Rebate" class="headerlink" title="3. Rebate"></a>3. Rebate</h1><p>A company should review rebate strategy at least annually, for each channel, customer, or segment, what behavior are you trying to achieve? For each desired behavior, establish which type of rebate to employ. I think it is good to create a set of rebate templates: a rebate playbook to help cut down complexity while ensuring the right rebate is applied to the right customer objective.</p>
+<p>Common customer objectives and rebate types are depicted here.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing3-2.PNG" width="700"></p><p align = "center" > Fig. 4 Rebate objective and type
+</p>
+
+
+
+
+
+
+
+ 
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Discount/" rel="tag"># Discount</a>
+              <a href="/tags/Rebate/" rel="tag"># Rebate</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/21/economics1/" rel="prev" title="Supply chain tracking-shipping containers availability">
+                  <i class="fa fa-chevron-left"></i> Supply chain tracking-shipping containers availability
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/03/FSA1/" rel="next" title="Financial comparison of Chenming paper vs. Sun paper">
+                  Financial comparison of Chenming paper vs. Sun paper <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

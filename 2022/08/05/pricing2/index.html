@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"huifengkiranli.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","Pisces | Gemini":260,"display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? Ho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pricing analysis framework study">
+<meta property="og:url" content="http://huifengkiranli.github.io/2022/08/05/pricing2/index.html">
+<meta property="og:site_name" content="Huifeng&#39;s Blog">
+<meta property="og:description" content="Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? Ho">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-05T16:36:27.000Z">
+<meta property="article:modified_time" content="2022-12-04T16:00:21.102Z">
+<meta property="article:author" content="Huifeng (Kiran) Li">
+<meta property="article:tag" content="Pricing">
+<meta property="article:tag" content="Cost">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://huifengkiranli.github.io/2022/08/05/pricing2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://huifengkiranli.github.io/2022/08/05/pricing2/","path":"2022/08/05/pricing2/","title":"Pricing analysis framework study"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Pricing analysis framework study | Huifeng's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Huifeng's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Do what you love, Love what you do.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Huifeng (Kiran) Li"
+      src="/images/huifengpic.jpg">
+  <p class="site-author-name" itemprop="name">Huifeng (Kiran) Li</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:huifeng.kiran.li@outlook.com" title="E-Mail → mailto:huifeng.kiran.li@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://cn.linkedin.com/in/kiranli" title="LinkedIn → https:&#x2F;&#x2F;cn.linkedin.com&#x2F;in&#x2F;kiranli" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>LinkedIn</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://huifengkiranli.github.io/2022/08/05/pricing2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/huifengpic.jpg">
+      <meta itemprop="name" content="Huifeng (Kiran) Li">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Pricing analysis framework study | Huifeng's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Pricing analysis framework study
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-08-05 18:36:27" itemprop="dateCreated datePublished" datetime="2022-08-05T18:36:27+02:00">2022-08-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Pricing/" itemprop="url" rel="index"><span itemprop="name">Pricing</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Setting a price is an overwhelming experience. You need to think about what is the right price point where a company can make money. What is the cost to set a margin floor? What does customer want? How much will they willing to pay? What does the competitor do? There is a lot of things need to take into account. Pricing framework can be summaried from 3 points of cost&amp;economics, customer value and competition. I think some concepts in this blog is important for preparatory pricing framework.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-20.png" width="600"></p><p align = "center" >
+</p>
+
+<span id="more"></span>
+
+<h1 id="1-Cost-and-economics"><a href="#1-Cost-and-economics" class="headerlink" title="1. Cost and economics"></a>1. Cost and economics</h1><h3 id="Marginal-cost"><a href="#Marginal-cost" class="headerlink" title="Marginal cost"></a><strong>Marginal cost</strong></h3><p>The incremental costs incurred when producing additional units of a good or service. It is calculated by taking the total change in the cost of producing more goods and dividing that by the change in the number of goods produced<br><strong>Marginal Cost &#x3D; (Change in Costs) &#x2F; (Change in Quantity)</strong></p>
+<ul>
+<li><p>What is “Change in Costs”?<br>At each level of production and during each time period, costs of production may increase or decrease, especially when the need arises to produce more or less volume of output. If manufacturing additional units requires hiring one or two additional workers and increases the purchase cost of raw materials, then a change in the overall production cost will result.<br>To determine the change in costs, simply deduct the production costs incurred during the first output run from the production costs in the next batch when output has increased.</p>
+</li>
+<li><p>What is “Change in Quantity”?<br>It’s inevitable that the volume of output will increase or decrease with varying levels of production. The quantities involved are usually significant enough to evaluate changes in cost. An increase or decrease in the volume of goods produced translates to costs of goods manufactured (COGM).<br>To determine the changes in quantity, the number of goods made in the first production run is deducted from the volume of output made in the following production run.</p>
+</li>
+<li><p>A company can maximize its profits by producing to where marginal cost (MC) equals marginal revenue (MR). <strong>Marginal cost also has an impact on average cost</strong>. When marginal cost is less than average cost, the production of additional units will decrease the average cost. When marginal cost is more, producing more units will increase the average. cost per unit.</p>
+</li>
+</ul>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-4.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<h3 id="Price-Elasticity-of-Demand"><a href="#Price-Elasticity-of-Demand" class="headerlink" title="Price Elasticity of Demand"></a>Price Elasticity of Demand</h3><p>&#x3D; Percentage Change in Quantity Demanded &#x2F; Percentage Change in Price</p>
+<ul>
+<li>A good is perfectly elastic if the price elasticity is infinite (if demand changes substantially even with minimal price change).</li>
+<li>If price elasticity is greater than 1, the good is elastic; if less than 1, it is inelastic.</li>
+<li>If a good’s price elasticity is 0 (no amount of price change produces a change in demand), it is perfectly inelastic.</li>
+<li>If price elasticity is exactly 1 (price change leads to an equal percentage change in demand), it is known as unitary elasticity.</li>
+</ul>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-5.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+<h3 id="Index-Based-Pricing"><a href="#Index-Based-Pricing" class="headerlink" title="Index Based Pricing"></a>Index Based Pricing</h3><p>is the use of a market or raw material index (or group of indices) to calculate and regularly refresh prices. Index Based Pricing evolved as a mean to aid these contract negotiations and enable buyers and sellers to enter into longer-term contracts with fewer hassles. It helped suppliers protect their margins in volatile markets, reduced hassling negotiations and offered a transparent pricing mechanism.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-9.png" width="600"></p><p align = "center" > Fig by Deloitte
+</p>
+
+<p>Index based pricing is applied in the circumstances with:</p>
+<ul>
+<li>Long term contract</li>
+<li>Low margin business</li>
+<li>Cost structure dominated by few big cost items</li>
+<li>Cost is vilatile</li>
+</ul>
+<h1 id="2-Customer-Value"><a href="#2-Customer-Value" class="headerlink" title="2. Customer Value"></a>2. Customer Value</h1><h3 id="Customer-value"><a href="#Customer-value" class="headerlink" title="Customer value"></a>Customer value</h3><p>&#x3D; Total Customer Benefits - Total Customer Costs</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-7.png" width="600"></p><p align = "center" > 
+</p>
+
+<h3 id="Customer-lifetime-value"><a href="#Customer-lifetime-value" class="headerlink" title="Customer lifetime value"></a>Customer lifetime value</h3><p>is the total worth to a business of a customer over the whole period of their relationship. It’s an important metric as it costs less to keep existing customers than it does to acquire new ones, so increasing the value of your existing customers is a great way to drive growth.</p>
+<p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-13.png" width="600"></p><p align = "center" > Fig by BCG
+</p>
+
+
+<h3 id="Five-steps-to-set-value-based-prices-for-new-products"><a href="#Five-steps-to-set-value-based-prices-for-new-products" class="headerlink" title="Five steps to set value-based prices for new products:"></a>Five steps to set value-based prices for new products:</h3><ol>
+<li>Define target customer segment</li>
+<li>Identify next best alternative</li>
+<li>Identify the customer&#96;s value drivers</li>
+<li>Quantify value drivers to find the indifference price point</li>
+<li>Use the indifference price point to set the price</li>
+</ol>
+<h1 id="3-Competition"><a href="#3-Competition" class="headerlink" title="3. Competition"></a>3. Competition</h1><p align = "center"><img src = "https://huifengkiranli.github.io/images/pricing2-17.png" width="600"></p><p align = "center" > 
+</p>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pricing/" rel="tag"># Pricing</a>
+              <a href="/tags/Cost/" rel="tag"># Cost</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/22/economic3-household%20saving/" rel="prev" title="Consumption tracking - Household savings analysis">
+                  <i class="fa fa-chevron-left"></i> Consumption tracking - Household savings analysis
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/14/Pricing%20decision%20and%20cost%20structure.md/" rel="next" title="Pricing Decisions and Cost Structure">
+                  Pricing Decisions and Cost Structure <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Huifeng (Kiran) Li</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
